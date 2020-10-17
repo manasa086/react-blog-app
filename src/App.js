@@ -5,7 +5,7 @@ import Header from "./Components/Header";
 import Home from "./Pages/Home";
 import PostPage from "./Pages/PostPage.js"
 
-
+import Authors from "./Pages/Authors.js"
 
 
 
@@ -24,17 +24,21 @@ function App() {
         </ul>
       </header> */}
       <Switch>
-      <Route  exact path={routes.home}>
-      <Home/>
-      </Route>
+      
       <Route path={routes.post}>
         <PostPage></PostPage>
+      </Route>
+      <Route path={routes.authors}>
+        <Authors></Authors>
       </Route>
       <Route path={routes.posts}>
       <h2>Posts Page</h2>
       </Route>
       <Route path={routes.home}>
       <h2>Authors Page</h2>
+      </Route>
+      <Route path={routes.home}>
+      <Home/>
       </Route>
       </Switch>
     </>
