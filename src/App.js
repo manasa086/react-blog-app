@@ -1,17 +1,44 @@
-import React from 'react';
+import React,{useReducer} from 'react';
 import routes from "./routes";
 import {Route,Switch,Link} from "react-router-dom";
 import Header from "./Components/Header";
 import Home from "./Pages/Home";
 import PostPage from "./Pages/PostPage.js"
+import NewPost from "./Pages/NewPost.js";
+import Authors from "./Pages/Authors.js";
 
-import Authors from "./Pages/Authors.js"
+import PageErrorBoundary from "./ErrorBoundary/PageErrorBoundary.js";
 
+
+const countReducer=(prevState,action)=>{
+  switch(action)
+  {
+    case "increment":
+      return prevState+1;
+    case "decrement":
+      return prevState-1;
+    default:
+      return prevState;
+  }
+}
 
 
 function App() {
+  const [counterState,counterDispatch]=useReducer(countReducer,0);
+
+  const subtract=()=>{
+    counterDispatch("decrement");
+  }
+  const add=()=>{
+    counterDispatch("increment");
+  }
+
+
   return (
     <>
+    {/* <button onClick={subtract}>-</button>
+    <h1>{counterState}</h1>
+    <button onClick={add}>+</button> */}
     <Header></Header>
       {/* <header>
         <ul>
@@ -25,21 +52,27 @@ function App() {
       </header> */}
       <Switch>
       
+      
+      
       <Route path={routes.post}>
+      <PageErrorBoundary>
         <PostPage></PostPage>
+        </PageErrorBoundary>
       </Route>
       <Route path={routes.authors}>
+      <PageErrorBoundary>
         <Authors></Authors>
+        </PageErrorBoundary>
       </Route>
-      <Route path={routes.posts}>
-      <h2>Posts Page</h2>
-      </Route>
-      <Route path={routes.home}>
-      <h2>Authors Page</h2>
+      <Route path={routes.addPost}>
+      <NewPost/>
       </Route>
       <Route path={routes.home}>
+      <PageErrorBoundary>
       <Home/>
+      </PageErrorBoundary>
       </Route>
+      
       </Switch>
     </>
   );

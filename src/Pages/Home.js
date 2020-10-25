@@ -4,18 +4,33 @@ import {useHistory} from "react-router-dom";
 import button from "reactstrap";
 import routes from "../routes";
 
-const Home=()=>{
+
+const useFetchPostsFromAPI=()=>{
+
+     
     const [posts,setPosts]=useState([]);
-
-    const history=useHistory();
-
     useEffect(()=>{
+        
         fetch("https://jsonplaceholder.typicode.com/posts")
         .then((res)=>res.json())
         .then((data)=>setPosts(data))
         .catch(console.error);
 
     },[])
+
+    return posts;
+
+}
+
+
+const Home=()=>{
+  
+
+    const posts=useFetchPostsFromAPI();
+
+    const history=useHistory();
+
+    
 
 
     return(
